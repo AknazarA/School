@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+	<div class="register_form">
+		<form class="register_form_form" method="post" action="" enctype="multipart/form-data" >
+			{% csrf_token %}
+			{% for form in register_form %}
+				<div class="register_field">
+					<label class="register_field_label">{{ form.label }}</label>
+					<div class="register_field_form">{{ form }} </div>
+				</div>
+			{% endfor %}
+
+			<button id="register_button">register</button>
+		</form>
+	</div>
+
+{% endblock %}
