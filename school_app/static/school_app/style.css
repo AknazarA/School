@@ -3,6 +3,15 @@ body{
 	height: 100%;
 }
 
+a{
+	text-decoration: none;
+}
+
+.heading{
+	font-size: 24px;
+	margin: 10px;
+}
+
 
 .register_form, .login_form{
 	position: absolute;
@@ -87,4 +96,334 @@ body{
 
 	padding: 10px;
 	border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.student_page{
+	position: absolute;
+
+	width: 100%;
+ 	height: 100%;
+
+ 	top: 0;
+ 	left: 0;
+}
+
+.student_list{
+	position: absolute;
+	top: calc(10% - 2px);
+	left: calc(24% - 2px);
+
+	width: 76%;
+	height: 90%	;
+	background: #123;
+
+	border: solid;
+	border-width: 1px;
+
+	overflow: auto;
+
+	display: flex;
+	flex-direction: column;
+}
+
+
+.col_names{
+  position: sticky;
+  top: 0;
+  background: white;
+}
+
+.big_row{
+	background: #1695;
+	color: white;
+}
+
+.row{
+	padding: 5px;
+}
+
+.student_link{
+	color: lime;
+}
+
+
+.search_div{
+	position: absolute;
+	top: 0;
+	left: 24%;
+
+	width: 76%;
+	height: 10%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background: #588;
+}
+
+.search_div input{
+	border: none;
+	border-radius: 5px;
+	padding: 5px;
+	margin-left: 5px;
+}
+
+.search_div button{
+	border: none;
+	border-radius: 5px;
+	padding: 5px;
+	margin-left: 5px;
+
+	background: lime;
+}
+
+
+
+
+
+
+
+
+
+.create_student{
+	width: 24%;
+	height: 100%;
+
+	background-color: black;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.create_student_form{
+	width: 80%;
+	height: 90%;
+
+	background: #123;
+	color: white;
+
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	box-shadow: 0px 0px 10px white;
+
+	padding: 10px;
+	border-radius: 10px 50px 10px 50px;
+}
+
+.create_student input, .create_student select{
+	width: 100%;
+	border: none;
+	border-radius: 5px;
+	padding: 3px;
+}
+
+.create_student_field{
+	width: 90%;
+	margin-top: 10px;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.create_student_label{
+	width: 100%;
+}
+
+.create_button{
+	border-top: none;
+	border-left: none;
+
+	background-color: lime;
+	margin-top: 20px;
+
+	padding: 10px;
+	border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.student_profile_page{
+	position: absolute;
+
+	width: 100%;
+ 	height: 100%;
+
+ 	top: 0;
+ 	left: 0;
+
+ 	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+}
+
+.student_profile, .student_profile_update{
+	min-width: 80%;
+	height: 70%;
+
+	background-color: #123;
+	color: white;
+	border-radius: 50px;
+
+	display: flex;
+	flex-direction: column;
+
+	box-shadow: 5px 5px black;
+	/*align-items: center;*/
+}
+
+.student_profile.show, .student_profile_update.show{
+	display: none;
+}
+
+.student_fio{
+	width: 100%;
+	font-size: 24px;
+	padding-top: 24px;
+	padding-bottom: 24px;
+	text-align: center;
+
+	/*background: red;*/
+}
+
+.student_info_photo{
+	display: flex;
+	flex-direction: row;
+
+	height: 100%;
+}
+
+.student_photo{
+	width: 50%;
+	max-height: 90%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	overflow: auto;
+}
+
+.student_update_photo{
+	/*width: 50%;*/
+	/*max-height: 90%;*/
+
+	/*color: black;*/
+	/*background-color: white;*/
+
+	display: flex;
+	flex-direction: column;
+	/*justify-content: center;*/
+	/*align-items: center;*/
+
+	overflow: auto;
+}
+
+.student_info{
+	width: 50%;
+	height: 90%;
+
+	font-size: 22px;
+	padding: 20px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.student_info_field{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.student_info_field_name{
+	width: 25%;
+	color: lightblue;
+
+	margin: 10px;
+}
+
+.save_student_updates_button{
+	position: sticky;
+	width: 40%;
+	left: 30%;
+
+	border: none;
+	border-radius: 5px;
+	padding: 10px;
+
+	background: lime;
+}
+
+
+
+
+
+
+.student_actions{
+	width: 100px;
+	height: 100px;
+
+	border: solid;
+	border-color: black;
+	border-top: none;
+	border-left: none;
+
+	color: white;
+
+	background: #800000;
+	border-radius: 10px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin: 10px;
+}
+
+.student_actions:active{
+	border: none;
+}
+
+#edit_button{
+	background-color: #191919;
+}
+
+
+#back_button{
+	height: 50px;
+
+	border-radius: 50px 100px 100px 50px;
+	background: #191;
+	color: white;
 }

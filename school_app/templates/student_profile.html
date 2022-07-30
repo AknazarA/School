@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ student.get_name }} {% endblock %}
+
+{% block body %}
+
+	<div class="student_profile_page">
+
+		<div class="student_profile">
+			<div class="student_fio">{{ student.fio }}</div>
+
+			<div class="student_info_photo">
+				<div class="student_info">
+					<div class="student_info_field">
+						<p class="student_info_field_name">Email:</p> {{ student.email }}
+					</div>
+					<div class="student_info_field">
+						<p class="student_info_field_name">Birth date:</p> {{ student.bdate }}
+					</div>
+					<div class="student_info_field">
+						<p class="student_info_field_name">Address:</p> {{ student.address }}
+					</div>
+					<div class="student_info_field">
+						<p class="student_info_field_name">Sex:</p> {{ student.sex }}
+					</div>
+					<div class="student_info_field">
+						<p class="student_info_field_name">Class:</p> {{ student.clss.name }}
+					</div>
+				</div>
+
+				{% if student.photo %}
+					<div class="student_photo">
+						<img src="{{ student.photo.url }}" width="auto" height="300px" style="border-radius: 10px;">
+					</div>
+				{% endif %}
+			</div>
+		</div>
+
+
+		<form class="student_profile_update show" action={% url "student_update" student.id %} method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="student_fio">{{ upadate_form.fio }}</div>
+
+			<div class="student_info_photo">
+				<div class="student_info">
+					<div class="student_info_field">
+						<p class="student_info_field_name">Email:</p> {{ upadate_form.email }}
+					</div>
+					<div class="student_info_field">
+						<p class="student_info_field_name">Birth date:</p> {{ upadate_form.bdate }}
+					</div>
+					<div class="student_info_field">
+						<p class="student_info_field_name">Address:</p> {{ upadate_form.address }}
+					</div>
+					<div class="student_info_field">
+						<p class="student_info_field_name">Sex:</p> {{ upadate_form.sex }}
+					</div>
+					<div class="student_info_field">
+						<p class="student_info_field_name">Class:</p> {{ upadate_form.clss }}
+					</div>
+				</div>
+
+				<div class="student_update_photo">
+					{% if student.photo %}
+						<label>Current</label>
+						<img src="{{ student.photo.url }}" width="100px" height="auto" style="border-radius: 10px;">
+					{% endif %}
+					Photo
+					{{ upadate_form.photo }}
+				</div>
+			</div>
+
+			<button class="save_student_updates_button">Save</button>
+		</form>
+
+		<div class="student_all_actions">
+			<div id="edit_button" class="student_actions">
+				<label>EDIT</label>
+			</div>
+
+			<button class="student_actions" onclick="deleteStudent{{student.id}}()">DELETE</button>
+
+			<a href="/student/"><button id="back_button" class="student_actions">Back to Student list</button></a>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+
+
+		const update_student = document.querySelector('#edit_button')
+
+		const student_form = document.querySelector('.student_profile')
+		const update_form = document.querySelector('.student_profile_update')
+
+		update_student.addEventListener('click', () => {
+			student_form.classList.toggle('show')
+			update_form.classList.toggle('show')
+		})
+
+
+		function deleteStudent{{student.id}}() {
+			fetch("/student/{{student.id}}/", {
+				method: "DELETE",
+				headers: {'Content-Type': 'application/json', 'X-CSRFToken': "{{ csrf_token }}"}
+			});
+
+			window.location.replace("/student/");
+		};
+	</script>
+
+{% endblock %}

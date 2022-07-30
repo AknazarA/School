@@ -29,8 +29,14 @@ class MyUserManager(BaseUserManager):
 class School(models.Model):
 	name = models.CharField(max_length=255)
 
+	def __str__(self):
+		return self.name
+
 class Subject(models.Model):
 	name = models.CharField(max_length=255)
+
+	def __str__(self):
+		return self.name
 
 class Teacher(AbstractUser):
 	phone = models.CharField(max_length=15, unique=True)
@@ -58,10 +64,13 @@ class Class(models.Model):
 		verbose_name = ("Class")
 		verbose_name_plural = ("Classes")
 
+	def __str__(self):
+		return self.name
+
 
 
 def student_directory_path(instance, filename):
-    return "student/{0}/{1}".format(instance.clss, filename)
+    return "student_images/{0}/{1}".format(instance.clss, f"{instance.fio}.jpg")
 
 class Student(models.Model):
 	fio = models.CharField(max_length=255)
@@ -71,3 +80,10 @@ class Student(models.Model):
 	address = models.CharField(max_length=1024)
 	sex = models.CharField(max_length=6, choices= (('male', 'male'), ('female', 'female')))
 	photo = models.ImageField(upload_to=student_directory_path, null=True, blank=True)
+
+	def __str__(self):
+		return self.fio
+
+	def get_name(self):
+		fio = self.fio.split()
+		return fio[1]

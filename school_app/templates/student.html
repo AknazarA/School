@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Student{% endblock %}
+
+{% block body %}
+
+	<div class="student_page">
+
+		<form  class="search_div" method="get" action="/student/" enctype="multipart/form-data">
+			<input type="search" name="name" placeholder="name | surname | middle">
+			<button type="submit">search</button>
+		</form>
+
+
+		<div class="create_student">
+			<form class="create_student_form" method="post" action="" enctype="multipart/form-data">
+				{% csrf_token %}
+				<h1 class="form_heading">New Student</h1>
+				{% for i in create_form %}
+					<div class="create_student_field">
+						<label class="create_student_label">{{ i.label }}</label>
+						{{ i }}
+					</div>
+				{% endfor %}
+				<button class="create_button" type="submit">Create</button>
+			</form>
+		</div>
+
+
+		<div class="student_list">
+
+			<table>
+				<tr class="col_names">
+					<th>Class</th>
+					<th>Full Name</th>
+					<th>Email</th>
+					<th>BirthDate</th>
+					<th>Address</th>
+					<th>Sex</th>
+				</tr>
+
+				{% for student in students %}
+					<tr class="big_row">
+						<td class="row">{{ student.clss.name }}</td>
+						<td class="row"><a class="student_link" href="/student/{{ student.id }}/">{{ student.fio }}</a></td>
+						<td class="row">{{ student.email }}</td>
+						<td class="row">{{ student.bdate }}</td>
+						<td class="row">{{ student.address }}</td>
+						<td class="row">{{ student.sex }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+
+
+		</div>
+	</div>
+
+{% endblock %}

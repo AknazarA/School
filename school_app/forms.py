@@ -1,5 +1,5 @@
 from django.forms import ModelForm, CharField, PasswordInput
-from .models import Teacher
+from .models import *
 
 class RegisterForm(ModelForm):
 	password = CharField(widget=PasswordInput)
@@ -28,3 +28,9 @@ class LoginForm(ModelForm):
 	class Meta:
 		model = Teacher
 		fields = ['phone', 'password']
+
+class StudentForm(ModelForm):
+
+	class Meta:
+		model = Student
+		fields = '__all__'

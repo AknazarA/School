@@ -6,7 +6,7 @@
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'school_app/style.css' %}"/>
 
-	<title>Register</title>
+	<title>{% block title %}{% endblock %}</title>
 </head>
 <body>
 {% block body %}

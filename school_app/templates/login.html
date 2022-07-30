@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
+{% block title %}Login{% endblock %}
+
 {% block body %}
 
 	<div class="login_form">
+		<label class="heading">Login</label>
 		<form class="login_form_form" method="post" action="" enctype="multipart/form-data" >
 			{% csrf_token %}
 			{% for form in login_form %}
