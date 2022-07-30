@@ -4,7 +4,7 @@ body{
 }
 
 
-.register_form{
+.register_form, .login_form{
 	position: absolute;
 
 	width: 100%;
@@ -19,7 +19,7 @@ body{
 	align-items: center;
 }
 
-.register_form_form{
+.register_form_form, .login_form_form{
 	background: #123;
 	padding: 50px;
 
@@ -72,4 +72,19 @@ body{
 
 #register_button:active{
 	border: none;
+}
+
+.register_link{
+	margin-top: 10px;
+	color: lightblue;
+}
+
+.error_message{
+	margin-top: 20px;
+	width: 100%;
+	background-color: yellow;
+	color: red;
+
+	padding: 10px;
+	border-radius: 10px;
 }
