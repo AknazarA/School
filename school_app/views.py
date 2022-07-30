@@ -14,7 +14,7 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.core.mail import send_mail, send_mass_mail
+from django.core.mail import send_mass_mail
 
 class RegisterViewSet(ViewSet):
 
@@ -70,25 +70,14 @@ class StudentViewSet(LoginRequiredMixin, ViewSet):
 
 
     def create(self, request):
-        # print(request.data)
         form = StudentForm(request.POST, request.FILES)
         if form.is_valid():
-            student = form.save()
-
-            send_mail(
-                f'Welcome to our {student.clss.school.name} school',
-                f'Dear, {student.fio}, you were added to {student.clss.name} class.\nHappy learning!',
-                'topeaky@gmail.com',
-                [request.data["email"]],
-                fail_silently=False,
-            )
-
-
+            form.save()
             return redirect("/student/")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, pk=None):
-        student = Student.objects.get(id=pk)
+        student = Student.objects.select_related('clss').get(id=pk)
         upadate_form = StudentForm(instance=student)
         return render(request=request, template_name="student_profile.html", context={"student": student, "upadate_form": upadate_form})
 
