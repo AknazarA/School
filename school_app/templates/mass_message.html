@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}MassMessage{% endblock %}
+
+{% block body %}
+
+	<div class="message_page">
+
+		<form class="message_form" method="post" action="" enctype="multipart/form-data">
+			<label class="heading">Mass Mailing</label>
+
+			{% csrf_token %}
+
+			{% for i in message_form %}
+				{{ i.label }} {{ i }}
+			{% endfor %}
+
+			<button class="create_button">send</button>
+		</form>
+
+		<a href="/student/"><button id="back_button" class="student_actions">Back to Student list</button></a>
+
+	</div>
+
+{% endblock %}

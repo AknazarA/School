@@ -14,6 +14,7 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.core.mail import send_mail, send_mass_mail
 
 class RegisterViewSet(ViewSet):
 
@@ -64,14 +65,25 @@ class StudentViewSet(LoginRequiredMixin, ViewSet):
             queryset = Student.objects.filter(clss__teacher=request.user, fio__contains=request.GET['name']).select_related('clss')
         else:
             queryset = Student.objects.filter(clss__teacher=request.user).select_related('clss')
-        create_form = StudentForm(None)
+        create_form = StudentCreateForm(request.user, None)
         return render(request=request, template_name=self.template_student, context={"students": queryset, "create_form": create_form})
 
 
     def create(self, request):
+        # print(request.data)
         form = StudentForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            student = form.save()
+
+            send_mail(
+                f'Welcome to our {student.clss.school.name} school',
+                f'Dear, {student.fio}, you were added to {student.clss.name} class.\nHappy learning!',
+                'topeaky@gmail.com',
+                [request.data["email"]],
+                fail_silently=False,
+            )
+
+
             return redirect("/student/")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -96,3 +108,40 @@ class StudentViewSet(LoginRequiredMixin, ViewSet):
     def destroy(self, request, pk=None):
         Student.objects.get(id=pk).delete()
         return redirect("/student/")
+
+
+
+class SendMessageViewSet(LoginRequiredMixin, ViewSet):
+
+    login_url = "/login/"
+    template_message = "mass_message.html"
+
+    def list(self, request):
+        message_form = MessageForm(request.user, None)
+        return render(request=request, template_name=self.template_message, context={"message_form": message_form})
+
+
+    def create(self, request):
+        form = MessageForm(request.user, request.POST)
+        if form.is_valid():
+            emails = set()
+
+            classes = request.POST.getlist('classes')
+            for clss in classes:
+            	current_class = Student.objects.filter(clss=int(clss))
+            	for student in current_class:
+            		emails.add(student.email)
+
+            send_mass_mail(
+                ((
+                    f'{request.data["heading"]}',
+	                f'{request.data["content"]}',
+	                'topeaky@gmail.com',
+	                emails
+                ),),
+                fail_silently=False,
+            )
+
+
+            return redirect("/student/")
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

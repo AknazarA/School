@@ -1,4 +1,4 @@
-from django.forms import ModelForm, CharField, PasswordInput
+from django.forms import ModelForm, CharField, PasswordInput, ModelMultipleChoiceField, Textarea
 from .models import *
 
 class RegisterForm(ModelForm):
@@ -29,8 +29,31 @@ class LoginForm(ModelForm):
 		model = Teacher
 		fields = ['phone', 'password']
 
+class StudentCreateForm(ModelForm):
+
+	def __init__(self, teacher, *args):
+		super().__init__(*args)
+		self.fields["clss"].queryset = Class.objects.filter(teacher=teacher)
+
+	class Meta:
+		model = Student
+		fields = '__all__'
+
 class StudentForm(ModelForm):
 
 	class Meta:
 		model = Student
 		fields = '__all__'
+
+class MessageForm(ModelForm):
+	heading = CharField()
+	content = CharField(widget=Textarea(attrs={"id": "message_content", "placeholder": "Message"}))
+	classes = ModelMultipleChoiceField(queryset = Class.objects.all())
+
+	def __init__(self, teacher, *args):
+		super().__init__(*args)
+		self.fields["classes"].queryset = Class.objects.filter(teacher=teacher)
+
+	class Meta:
+		model = School
+		fields = ['heading', 'content', 'classes']

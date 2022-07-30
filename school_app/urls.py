@@ -6,6 +6,7 @@ router = routers.DefaultRouter()
 router.register("register", RegisterViewSet, basename="register")
 router.register("login", LoginViewSet, basename="login")
 router.register("student", StudentViewSet, basename="student")
+router.register("mailing", SendMessageViewSet, basename="send_messaage")
 
 
 
