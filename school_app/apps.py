@@ -7,4 +7,4 @@ class SchoolAppConfig(AppConfig):
 
     def ready(self):
         from . import signals
-        request_finished.connect(signals.send_email_to_student)
+        request_finished.connect(signals.send_email_to_student, dispatch_uid="send_email_signal")
