@@ -117,9 +117,8 @@ class SendMessageViewSet(LoginRequiredMixin, ViewSet):
 
             classes = request.POST.getlist('classes')
             for clss in classes:
-            	current_class = Student.objects.filter(clss=int(clss))
-            	for student in current_class:
-            		emails.add(student.email)
+            	current_class = set(Student.objects.filter(clss=int(clss)).values_list('email', flat=True))
+            	emails.update(current_class)
 
             send_mass_mail(
                 ((
@@ -130,7 +129,6 @@ class SendMessageViewSet(LoginRequiredMixin, ViewSet):
                 ),),
                 fail_silently=False,
             )
-
 
             return redirect("/student/")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
