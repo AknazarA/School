@@ -13,8 +13,8 @@
 - Clone the current github folder
 - Create a virtual environment (Do not forget to activate it)
 - Go to the directory with "docker-compose.yml" file
-- Open a command line there and run "docker-compose up"
-	* if it will show some errors (like "Is the server running on that host and accepting TCP/IP connections?") and does nothing. Press “CTRL + C” and type again “docker-compose up”. It happens because school_web starts before database is fully finished.
+- Open a command line there and run `docker-compose up`
+	* if it will show some errors (like "Is the server running on that host and accepting TCP/IP connections?") and does nothing. Press “CTRL + C” and type again `docker-compose up`. It happens because school_web starts before database is fully finished.
 - When it runs, go to [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) and log in with these credentials:
 	* Phone: 123456789
 	* Password: 123456789
